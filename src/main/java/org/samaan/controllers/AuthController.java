@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173") // Ensure frontend access
+@CrossOrigin(origins = "https://samaan-rho.vercel.app/") // Ensure frontend access
 public class AuthController {
 
     private final UserRepository userRepository;

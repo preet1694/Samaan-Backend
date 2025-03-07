@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cities")
-@CrossOrigin(origins = "http://localhost:5173") // Allow frontend access
+@CrossOrigin(origins = "https://samaan-rho.vercel.app/") // Allow frontend access
 public class CityController {
 
     private final CityService cityService;
