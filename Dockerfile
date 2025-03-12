@@ -1,24 +1,32 @@
-# Use JDK to build the application
+# ===================== Build Stage =====================
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 
-# Copy the source code and Maven files
+# Copy Maven Wrapper and project files
 COPY .mvn .mvn
 COPY mvnw pom.xml ./
-COPY src src
 
-# Grant execute permission to mvnw
+# Grant execute permission to Maven Wrapper
 RUN chmod +x mvnw
+
+# Download dependencies (improves caching)
+RUN ./mvnw dependency:go-offline
+
+# Copy source code
+COPY src src
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Use JRE for the final image
+# ===================== Runtime Stage =====================
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the built JAR file from the builder stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Expose the port (Render automatically assigns it)
+EXPOSE 8080
+
+# Run the application with Render-friendly settings
+CMD ["java", "-jar", "app.jar", "--server.port=${PORT}"]
