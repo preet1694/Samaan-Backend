@@ -31,9 +31,7 @@ public class SecurityConfig {
         
         // ✅ Define multiple allowed origins properly
         configuration.setAllowedOrigins(List.of(
-                "https://samaan-psi.vercel.app/",
-                "https://samaan-preetbrahmbhatt16-gmailcoms-projects.vercel.app",
-                "https://samaan-git-main-preetbrahmbhatt16-gmailcoms-projects.vercel.app/",
+                "https://samaan.onrender.com",
                 "http://localhost:5173"
         ));
 
