@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ Correct CORS config
-                .csrf(csrf -> csrf.disable()) // ❗ Disable CSRF only if needed
+                // .csrf(csrf -> csrf.disable()) // ❗ Disable CSRF only if needed
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
 
         return http.build();
@@ -31,8 +31,9 @@ public class SecurityConfig {
         
         // ✅ Define multiple allowed origins properly
         configuration.setAllowedOrigins(List.of(
-                "samaan-psi.vercel.app",
-                "samaan-preetbrahmbhatt16-gmailcoms-projects.vercel.app",
+                "https://samaan-psi.vercel.app/",
+                "https://samaan-preetbrahmbhatt16-gmailcoms-projects.vercel.app",
+                "https://samaan-git-main-preetbrahmbhatt16-gmailcoms-projects.vercel.app/"
                 "http://localhost:5173"
         ));
 
