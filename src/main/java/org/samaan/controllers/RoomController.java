@@ -1,6 +1,5 @@
 package org.samaan.controllers;
 
-
 import org.samaan.model.Message;
 import org.samaan.model.Room;
 import org.samaan.repositories.RoomRepository;
@@ -11,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/rooms")
-@CrossOrigin("https://samaan-rho.vercel.app/")
 public class RoomController {
 
     private final RoomRepository roomRepository;
@@ -47,8 +45,8 @@ public class RoomController {
     // Get messages of room with pagination
     @GetMapping("/{roomId}/messages")
     public ResponseEntity<List<Message>> getMessages(@PathVariable String roomId,
-                                                     @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-                                                     @RequestParam(value = "size", defaultValue = "20", required = false) int size) {
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "20", required = false) int size) {
         Room room = roomRepository.findByRoomId(roomId);
         if (room == null) {
             return ResponseEntity.badRequest().build();

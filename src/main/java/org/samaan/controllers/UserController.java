@@ -12,7 +12,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "https://samaan-rho.vercel.app/")
 public class UserController {
 
     @Autowired
