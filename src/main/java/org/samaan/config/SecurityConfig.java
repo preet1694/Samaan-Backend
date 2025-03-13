@@ -33,7 +33,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
                 "https://samaan-psi.vercel.app/",
                 "https://samaan-preetbrahmbhatt16-gmailcoms-projects.vercel.app",
-                "https://samaan-git-main-preetbrahmbhatt16-gmailcoms-projects.vercel.app/"
+                "https://samaan-git-main-preetbrahmbhatt16-gmailcoms-projects.vercel.app/",
                 "http://localhost:5173"
         ));
 
