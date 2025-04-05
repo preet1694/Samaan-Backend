@@ -5,7 +5,6 @@ public class SearchRequest {
     private String destination;
     private String date;
 
-    // Getters and setters
     public String getSource() {
         return source;
     }

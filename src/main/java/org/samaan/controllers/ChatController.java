@@ -10,21 +10,26 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.samaan.model.Message;
 import org.samaan.services.ChatService;
+import org.samaan.services.NotificationService;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/chat")
-
 public class ChatController {
 
     @Autowired
     private ChatService chatService;
 
     @Autowired
-    private MessageRepository messageRepository;
+    MessageRepository messageRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
@@ -37,6 +42,11 @@ public class ChatController {
     @PostMapping("/save")
     public ResponseEntity<List<Message>> saveMessage(@RequestBody Message message) {
         chatService.saveMessage(message);
+        // notificationService.sendEmailNotification(
+        // message.getCarrierEmail(),
+        // "New Chat Message",
+        // "You have a new message from " + message.getSenderEmail()
+        // );
         List<Message> messages = chatService.getChatHistory(message.getRoomId());
         return ResponseEntity.ok(messages);
     }
@@ -47,7 +57,6 @@ public class ChatController {
     }
 
     @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/chat")
     public void sendMessage(@Payload Message message) {
         message.setTimestamp(LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()));
 
@@ -65,5 +74,10 @@ public class ChatController {
     public ResponseEntity<List<String>> getAllChatRooms(@RequestParam String email) {
         List<String> chatRooms = chatService.getAllChatRooms(email);
         return ResponseEntity.ok(chatRooms);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, List<Message>>> getAllChats(@RequestParam String carrierEmail) {
+        return ResponseEntity.ok(chatService.getChatsGroupedBySender(carrierEmail));
     }
 }

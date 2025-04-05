@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @Document(collection = "trips")
@@ -39,12 +41,17 @@ public class Trip {
     private String email;
 
     @NotNull(message = "Date is required")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")  // Ensure date is stored as 'YYYY-MM-DD'
-    private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Ensure date is stored as 'YYYY-MM-DD'
+    private String date;
 
     @NotBlank(message = "Vehicle type is required")
     private String vehicleType;
 
     @NotBlank(message = "Capacity is required")
     private String capacity;
+    private String feedback;
+    private Integer rating;
+    private boolean senderSelected;
+    private boolean carrierCompleted;
+    private String senderEmail;
 }

@@ -15,13 +15,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws")
                 .setAllowedOrigins(
                         "https://samaan-pooling.onrender.com",
-                        "https://samaan.onrender.com")
-                .withSockJS(); // ✅ Enable SockJS for fallback support
+                        "https://samaan.onrender.com",
+                        "http://localhost:5173")
+                .withSockJS();
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic"); // ✅ Enables the broker for "/topic" (client-to-client messages)
-        registry.setApplicationDestinationPrefixes("/app"); // ✅ Prefix for sending messages to @MessageMapping
+        registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 }

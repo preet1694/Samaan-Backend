@@ -10,14 +10,12 @@ import java.util.List;
 @Getter
 @Document(collection = "rooms")
 public class Room {
-    // Getters and Setters
     @Id
     private String roomId;
     private List<Message> messages;
     private String senderEmail;
     private String carrierEmail;
 
-    // Constructor
     public Room(String roomId, List<Message> messages, String senderEmail, String carrierEmail) {
         this.roomId = roomId;
         this.messages = messages;

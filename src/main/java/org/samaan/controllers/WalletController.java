@@ -1,4 +1,3 @@
-// File: backend/src/main/java/com/example/deliveryapp/controller/WalletController.java
 package org.samaan.controllers;
 
 import org.samaan.model.Wallet;

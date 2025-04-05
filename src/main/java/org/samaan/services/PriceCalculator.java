@@ -24,11 +24,9 @@ public class PriceCalculator {
 
         double distance = DistanceCalculator.calculateDistance(
                 sourceCoordinates.getLat(), sourceCoordinates.getLng(),
-                destinationCoordinates.getLat(), destinationCoordinates.getLng()
-        );
+                destinationCoordinates.getLat(), destinationCoordinates.getLng());
 
         int price = (int) (distance * BASE_RATE_PER_KM);
-        return Math.max(price, MINIMUM_PRICE); // Ensure minimum charge applies
+        return Math.max(price, MINIMUM_PRICE); 
     }
 }
-

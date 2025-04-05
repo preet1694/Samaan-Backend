@@ -24,17 +24,17 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found"));
     }
 
-    @PostMapping(path = "/register",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
         Map<String, String> response = new HashMap<>();
 
-        // Check if the email already exists
+        
         if (userRepository.findByEmail(user.getEmail()) != null) {
             response.put("error", "Email already exists");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
 
-        // Save user to the database
+        
         userRepository.save(user);
         response.put("message", "User registered successfully");
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -46,7 +46,8 @@ public class UserController {
         String password = loginRequest.get("password");
 
         if (email == null || password == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Email and password are required"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Email and password are required"));
         }
 
         User user = userRepository.findByEmail(email);
@@ -68,19 +69,17 @@ public class UserController {
                 "_id", Objects.requireNonNullElse(user.getId(), "N/A"),
                 "name", Objects.requireNonNullElse(user.getName(), "N/A"),
                 "role", Objects.requireNonNullElse(user.getRole(), "N/A"),
-                "email", Objects.requireNonNullElse(user.getEmail(), "N/A")
-        ));
+                "email", Objects.requireNonNullElse(user.getEmail(), "N/A")));
 
     }
 
-
-    // Get all users (Optional for debugging)
+    
     @GetMapping
     public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
-    // Get a user by ID
+    
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable String id) {
         Optional<User> user = userRepository.findById(id);
@@ -88,9 +87,10 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body((User) Map.of("error", "User not found")));
     }
+
     @PostMapping("/getByEmail")
     public ResponseEntity<?> getUserByEmail(@RequestBody Map<String, String> requestBody) {
-        String email = requestBody.get("email"); // ✅ Extract email from JSON body
+        String email = requestBody.get("email"); 
         Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
 
         return user.map(ResponseEntity::ok)
@@ -113,5 +113,4 @@ public class UserController {
                     .body(Collections.singletonMap("error", "User not found"));
         }
     }
-
 }

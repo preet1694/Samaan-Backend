@@ -17,8 +17,7 @@ public class CityService {
             "Dahod", "Amreli", "Deesa", "Jetpur", "Bhuj",
             "Surendranagar", "Himatnagar", "Valsad", "Kalol", "Botad",
             "Palanpur", "Anjar", "Mahuva", "Sanand", "Chhota Udaipur",
-            "Wadhwan", "Modasa", "Kadi", "Dhoraji", "Visnagar"
-    );
+            "Wadhwan", "Modasa", "Kadi", "Dhoraji", "Visnagar");
 
     public List<String> searchCities(String query) {
         return CITIES.stream()
@@ -26,4 +25,3 @@ public class CityService {
                 .collect(Collectors.toList());
     }
 }
-

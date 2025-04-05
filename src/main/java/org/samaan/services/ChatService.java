@@ -39,7 +39,6 @@ public class ChatService {
     public Map<String, List<Message>> getChatsGroupedBySender(String carrierEmail) {
         List<Message> messages = messageRepository.findByCarrierEmail(carrierEmail);
 
-        // Group messages by senderEmail
         return messages.stream()
                 .collect(Collectors.groupingBy(Message::getSenderEmail));
     }
@@ -47,7 +46,6 @@ public class ChatService {
     public List<String> getAllChatRooms(String email) {
         List<Message> messages = messageRepository.findBySenderEmailOrCarrierEmail(email, email);
 
-        // Extract unique room IDs
         return messages.stream()
                 .map(Message::getRoomId)
                 .distinct()

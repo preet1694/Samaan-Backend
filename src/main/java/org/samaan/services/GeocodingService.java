@@ -1,4 +1,5 @@
 package org.samaan.services;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -12,12 +13,13 @@ import org.springframework.beans.factory.annotation.Value;
 @Service
 public class GeocodingService {
 
-    String apiKey="45cd452c08ed438e99edcfba859306aa" ;
+    String apiKey = "45cd452c08ed438e99edcfba859306aa";
     private final RestTemplate restTemplate = new RestTemplate();
+
     public List<String> getSuggestions(String query) {
 
-        String url = "https://api.opencagedata.com/geocode/v1/json?q=" + query + "&key=" + apiKey + "&countrycode=in"+"&limit=5";
-
+        String url = "https://api.opencagedata.com/geocode/v1/json?q=" + query + "&key=" + apiKey + "&countrycode=in"
+                + "&limit=5";
 
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);
         Map body = response.getBody();
@@ -29,13 +31,13 @@ public class GeocodingService {
         var results = (List<Map>) body.get("results");
 
         return results.stream()
-                .map(result -> (String) result.get("formatted"))        // Get the formatted address
+                .map(result -> (String) result.get("formatted")) // Get the formatted address
                 .collect(Collectors.toList());
     }
 
     public LatLng getCoordinates(String address) {
 
-        String apiKey = "45cd452c08ed438e99edcfba859306aa";                 // Replace with your actual OpenCage API key
+        String apiKey = "45cd452c08ed438e99edcfba859306aa"; // Replace with your actual OpenCage API key
         String url = "https://api.opencagedata.com/geocode/v1/json?q=" + address + "&key=" + apiKey;
 
         ResponseEntity<Map> response = restTemplate.getForEntity(url, Map.class);

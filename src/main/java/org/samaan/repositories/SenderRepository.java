@@ -7,4 +7,6 @@ public interface SenderRepository extends MongoRepository<Sender, String> {
     Sender findByUserId(String userId);
 
     Sender save(Sender sender);
+
+    Sender findByEmail(String email);
 }

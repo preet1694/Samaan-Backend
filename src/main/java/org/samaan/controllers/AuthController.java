@@ -29,11 +29,10 @@ public class AuthController {
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
 
         if (existingUser.isEmpty()) {
-            // Register new user if not found
             User newUser = new User();
             newUser.setName(principal.getAttribute("name"));
             newUser.setEmail(email);
-            newUser.setRole("sender"); // Default role
+            newUser.setRole("sender");
             userRepository.save(newUser);
         }
 

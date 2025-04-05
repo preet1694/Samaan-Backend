@@ -9,8 +9,11 @@ import lombok.Data;
 public class Sender {
     @Id
     private String id;
+    private String email;
     private String userId;
     private String address;
     private String createdAt;
     private String updatedAt;
+    private String selectedCarrierId;
+
 }
