@@ -29,7 +29,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // ✅ Define multiple allowed origins properly
+        
         configuration.setAllowedOrigins(List.of(
                 "https://samaan.onrender.com",
                 "http://localhost:5173"
