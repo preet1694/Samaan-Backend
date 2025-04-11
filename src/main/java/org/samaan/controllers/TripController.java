@@ -33,7 +33,7 @@ public class TripController {
 
     @PostMapping("/{tripId}/cancel")
     public ResponseEntity<?> requestCancel(@PathVariable Long tripId, @RequestParam String role) {
-        Optional<Trip> optionalTrip = tripRepository.findById(String.valueOf(tripId));
+        Optional<Trip> optionalTrip = tripRepository.findById(tripId);
         if (optionalTrip.isEmpty()) return ResponseEntity.notFound().build();
 
         Trip trip = optionalTrip.get();
