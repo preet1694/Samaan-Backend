@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +30,49 @@ public class TripController {
         Trip savedTrip = tripService.addTrip(trip); 
         return ResponseEntity.ok(savedTrip);
     }
-    
+
+    @PostMapping("/{tripId}/cancel")
+    public ResponseEntity<?> requestCancel(@PathVariable Long tripId, @RequestParam String role) {
+        Optional<Trip> optionalTrip = tripRepository.findById(String.valueOf(tripId));
+        if (optionalTrip.isEmpty()) return ResponseEntity.notFound().build();
+
+        Trip trip = optionalTrip.get();
+
+        if ("sender".equalsIgnoreCase(role)) {
+            trip.setSenderRequestedCancel(true);
+        } else if ("carrier".equalsIgnoreCase(role)) {
+            trip.setCarrierRequestedCancel(true);
+        }
+
+        // If both have requested, finalize the cancellation
+        if (trip.isSenderRequestedCancel() && trip.isCarrierRequestedCancel()) {
+            trip.setIsCancelled(true);
+            trip.setCancellationConfirmed(true);
+        }
+
+        tripRepository.save(trip);
+        return ResponseEntity.ok(trip);
+    }
+
+    @PostMapping("/{tripId}/respond-cancel")
+    public ResponseEntity<?> respondToCancel(@PathVariable Long tripId, @RequestParam String role, @RequestParam boolean agree) {
+        Optional<Trip> optionalTrip = tripRepository.findById(String.valueOf(tripId));
+        if (optionalTrip.isEmpty()) return ResponseEntity.notFound().build();
+
+        Trip trip = optionalTrip.get();
+
+        if (agree) {
+            trip.setIsCancelled(true);
+            trip.setCancellationConfirmed(true);
+        } else {
+            if ("sender".equalsIgnoreCase(role)) trip.setCarrierRequestedCancel(false);
+            else if ("carrier".equalsIgnoreCase(role)) trip.setSenderRequestedCancel(false);
+        }
+
+        tripRepository.save(trip);
+        return ResponseEntity.ok(trip);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Trip>> getAllTrips() {
         return ResponseEntity.ok(tripService.getAllTrips());

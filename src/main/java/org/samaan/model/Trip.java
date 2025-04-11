@@ -6,9 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 @Document(collection = "trips")
@@ -54,4 +51,14 @@ public class Trip {
     private boolean senderSelected;
     private boolean carrierCompleted;
     private String senderEmail;
+
+    private boolean senderRequestedCancel = false;
+    private boolean carrierRequestedCancel = false;
+    private boolean isCancelled = false;
+    private boolean cancellationConfirmed = false;
+
+
+    public void setIsCancelled(boolean cancelled) {
+        isCancelled = cancelled;
+    }
 }
