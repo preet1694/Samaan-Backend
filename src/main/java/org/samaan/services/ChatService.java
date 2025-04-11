@@ -51,6 +51,17 @@ public class ChatService {
                 .distinct()
                 .collect(Collectors.toList());
     }
+    
+    public void markMessagesAsRead(String roomId, String email) {
+    List<Message> messages = messageRepository.findByRoomIdOrderByTimestampAsc(roomId);
+    for (Message msg : messages) {
+        if (!msg.getSenderEmail().equals(email) && !msg.isRead()) {
+            msg.setRead(true);
+            messageRepository.save(msg);
+        }
+    }
+}
+
 
 }
 
