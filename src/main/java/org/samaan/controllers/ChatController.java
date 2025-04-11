@@ -80,4 +80,10 @@ public class ChatController {
     public ResponseEntity<Map<String, List<Message>>> getAllChats(@RequestParam String carrierEmail) {
         return ResponseEntity.ok(chatService.getChatsGroupedBySender(carrierEmail));
     }
+
+    @PostMapping("/mark-read")
+    public ResponseEntity<String> markMessagesAsRead(@RequestParam String roomId, @RequestParam String email) {
+        chatService.markMessagesAsRead(roomId, email);
+        return ResponseEntity.ok("Messages marked as read");
+    }
 }
