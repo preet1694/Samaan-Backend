@@ -105,6 +105,8 @@ public class UserController {
         if (existingUser.isPresent()) {
             User user = existingUser.get();
             user.setName(updatedUser.getName());
+            user.setPhoneNumber(updatedUser.getPhoneNumber());
+            user.setAddress(updatedUser.getAddress());
 
             userRepository.save(user);
             return ResponseEntity.ok(user);

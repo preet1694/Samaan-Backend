@@ -24,10 +24,13 @@ public class User {
     private String role;
     private List<String> roomIds;
 
-
-    public void setCreatedAt(String string) {
-    }
-
-    public void setUpdatedAt(String string) {
-    }
+    @Setter
+    @Getter
+    private String profilePic;
+    @Setter
+    @Getter
+    private String phoneNumber;
+    @Setter
+    @Getter
+    private String address;
 }

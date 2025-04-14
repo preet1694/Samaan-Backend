@@ -14,13 +14,10 @@ public class SenderService {
     private SenderRepository senderRepository;
 
     public Sender createSender(Sender sender) {
-        sender.setCreatedAt(LocalDateTime.now().toString());
-        sender.setUpdatedAt(LocalDateTime.now().toString());
         return senderRepository.save(sender);
     }
 
     public Sender updateSender(Sender sender) {
-        sender.setUpdatedAt(LocalDateTime.now().toString());
         return senderRepository.save(sender);
     }
 
