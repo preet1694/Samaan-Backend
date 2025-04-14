@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PriceCalculator {
-    private static final double BASE_RATE_PER_KM = 0.30; // Price per km in INR
-    private static final int MINIMUM_PRICE = 50; // Minimum charge
+    private static final double BASE_RATE_PER_KM = 0.15; // Price per km in INR
+    private static final int MINIMUM_PRICE = 30; // Minimum charge
 
     private final GeocodingService geocodingService;
 
