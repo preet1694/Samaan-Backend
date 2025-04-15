@@ -27,10 +27,17 @@ public class User {
     @Setter
     @Getter
     private String profilePic;
-    @Setter
-    @Getter
     private String phoneNumber;
     @Setter
     @Getter
     private String address;
+
+    public String getPhoneNumber()
+    {
+        return this.phoneNumber;
+    }
+    public void setPhoneNumber(String newPhoneNumber)
+    {
+        this.phoneNumber=newPhoneNumber;
+    }
 }
